@@ -1,18 +1,25 @@
 <template>
-  <div class="login">
-    <div class="l-form">
-      <div class="l-tip">图书馆管理系统</div>
-      <el-form ref="form" :model="form">
-        <el-form-item>
-          <el-input v-model="form.name"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-input v-model="form.password" type="password"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="onSubmit">登录</el-button>
-        </el-form-item>
-      </el-form>
+  <div class="loginBody">
+    <div class="login">
+      <img
+        src="https://public-aibiyag.oss-cn-shanghai.aliyuncs.com/operator/sso/sso_login_bg.png"
+        alt
+        srcset
+      />
+      <p class="logoName">后台登录系统</p>
+      <div class="logoForm">
+        <el-form ref="loginForm" :model="loginForm" label-width="80px" :rules="rules">
+          <el-form-item label="用户名" prop="username">
+            <el-input v-model="loginForm.username"></el-input>
+          </el-form-item>
+          <el-form-item label="密码" prop="password">
+            <el-input v-model="loginForm.password" type="password" autocomplete="off"></el-input>
+          </el-form-item>
+        </el-form>
+      </div>
+      <div class="submit">
+        <el-button type="primary" @click="submitClick('loginForm')">登录</el-button>
+      </div>
     </div>
   </div>
 </template>
@@ -22,51 +29,73 @@ export default {
   name: "Login",
   data() {
     return {
-      form: {
-        name: "",
+      rules: {
+        username: [
+          { required: true, message: "请输入用户名", trigger: "blur" }
+        ],
+        password: [{ required: true, message: "请输入密码", trigger: "blur" }]
+      },
+      loginForm: {
+        username: "",
         password: ""
       }
     };
   },
   methods: {
-    onSubmit() {
-      console.log("点击登录");
-      // 跳转index页面
-      this.$router.push("/index");
+    submitClick(formName) {
+      // 表单验证
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          const data = {
+            username: this.loginForm.username,
+            password: this.loginForm.password
+          };
+          console.log("得到提交的data====", data);
+          // 跳转到home页面
+          this.$router.push("/home");
+        } else {
+          console.log("error submit！");
+          return false;
+        }
+      });
     }
   }
 };
 </script>
 <style lang="scss">
-// .login {
-//   width: 100%;
-//   height: 100%;
-//   background: #000;
-//   .l-form {
-//     position: fixed;
-//     top: 50%;
-//     left: 50%;
-//     transform: translateY(-50%) translateX(-50%);
-//     width: 300px;
-//     margin: auto;
-//     border-radius: 8px;
-//     background: #fff;
-//     padding: 20px;
-//     .l-tip {
-//       text-align: center;
-//       font-size: 24px;
-//       font-weight: bold;
-//     }
-//     .el-form {
-//       width: 100%;
-//       margin: auto;
-//       margin-top: 20px;
-//       .el-form-item {
-//         button {
-//           width: 100%;
-//         }
-//       }
-//     }
-//   }
-// }
+.loginBody {
+  width: 100%;
+  height: 100%;
+  background: url("https://public-aibiyag.oss-cn-shanghai.aliyuncs.com/operator/sso/aibiyag_sso_login.png")
+    center center no-repeat;
+  overflow: hidden;
+  .login {
+    float: right;
+    width: 35%;
+    margin: 10% 3%;
+    position: relative;
+    img {
+      width: 100%;
+    }
+    .logoName {
+      width: 100%;
+      position: absolute;
+      top: 25%;
+      text-align: center;
+      font-size: 25px;
+      font-weight: bold;
+    }
+    .logoForm {
+      position: absolute;
+      width: 85%;
+      top: 50%;
+      left: 5%;
+    }
+    .submit {
+      position: absolute;
+      width: 100%;
+      bottom: 10%;
+    }
+  }
+}
 </style>

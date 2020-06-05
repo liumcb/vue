@@ -5,6 +5,13 @@ import store from './store'
 // 引入element-ui
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import { post, get, patch, put } from "./api/config";
+
+// 调用接口方法
+Vue.prototype.$post = post
+Vue.prototype.$get = get
+Vue.prototype.$patch = patch
+Vue.prototype.$put = put
 
 // 使用element
 Vue.use(ElementUI);

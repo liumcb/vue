@@ -1,18 +1,18 @@
 <template>
   <div id="app">
     <router-view></router-view>
-    <FooterBar v-if="isShow" />
+    <!-- <FooterBar v-if="isShow" /> -->
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
-import FooterBar from "./components/footerBar";
+// import FooterBar from "./components/footerBar";
 
 export default {
   name: "App",
   components: {
-    FooterBar: FooterBar
+    // FooterBar: FooterBar
   },
   computed: {
     ...mapState({
@@ -49,6 +49,5 @@ body,
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

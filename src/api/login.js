@@ -1,7 +1,8 @@
-import service from './config'
+import service from './config';
+
 class Login {
- login(params) {
- return service.post('login', params)
- }
+  login(params) {
+    return service.post('login', params)
+  }
 }
 export default new Login()
