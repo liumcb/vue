@@ -25,11 +25,7 @@
           text-color="#fff"
           active-text-color="#ffd04b"
         >
-          <el-submenu
-            :index="' ' + item1.order"
-            v-for="item1 in menuData"
-            :key="item1.path"
-          >
+          <el-submenu :index="' ' + item1.order" v-for="item1 in menuData" :key="item1.path">
             <!--表示可以展开的一组 -->
             <template slot="title" @click="clickTitle">
               <!--图标 -->
@@ -61,67 +57,67 @@
 
 <script>
 export default {
-  name: 'Home',
+  name: "Home",
   data() {
     return {
       style: {
-        display: 'block',
+        display: "block"
       },
       menuData: [
         {
-          name: '企业信息管理',
-          order: '1',
-          path: 'componyinfomanage',
+          name: "企业信息管理",
+          order: "1",
+          path: "componyinfomanage",
           children: [
             {
-              path: 'componyinfomanage',
-              name: '企业信息',
-            },
-          ],
+              path: "componyinfomanage",
+              name: "企业信息"
+            }
+          ]
         },
         {
-          path: 'postinfomange',
-          name: '岗位信息管理',
-          order: '2',
+          path: "postinfomange",
+          name: "岗位信息管理",
+          order: "2",
           children: [
             {
-              path: 'postinfomange',
-              name: '岗位信息',
-            },
-          ],
+              path: "postinfomange",
+              name: "岗位信息"
+            }
+          ]
         },
         {
-          path: 'orderinfomange',
-          name: '订单信息管理',
-          order: '3',
+          path: "orderinfomange",
+          name: "订单信息管理",
+          order: "3",
           children: [
             {
-              path: 'orderinfomange',
-              name: '订单信息',
-            },
-          ],
+              path: "orderinfomange",
+              name: "订单信息"
+            }
+          ]
         },
         {
-          path: 'datamangeinfo',
-          name: '数据字典',
-          order: '4',
+          path: "datamangeinfo",
+          name: "数据字典",
+          order: "4",
           children: [
             {
-              path: 'datamangeinfo',
-              name: '岗位类型',
-            },
-          ],
-        },
-      ],
+              path: "datamangeinfo",
+              name: "岗位类型"
+            }
+          ]
+        }
+      ]
     };
   },
   created: function() {
     // 获取菜单页面
-    this.$post('/menu/indexMenuAndPermission', { userId: 7 })
-      .then((req) => {
-        console.log('得到的req===', req);
+    this.$post("/menu/indexMenuAndPermission", { userId: 7 })
+      .then(req => {
+        console.log("得到的req===", req);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   },
@@ -129,9 +125,9 @@ export default {
     clickMenuItem() {},
     //回到首页
     clickTitle() {
-      this.style.display = 'block';
-    },
-  },
+      this.style.display = "block";
+    }
+  }
 };
 </script>
 <style scoped>
