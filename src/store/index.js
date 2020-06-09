@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import footerStatus from './modules/footerStatus';
 import home from './modules/home';
+import login from './modules/login';
+import getters from './getters';
 
 // 挂载vue
 Vue.use(Vuex);
@@ -9,9 +10,10 @@ Vue.use(Vuex);
 // 创建vuex对象
 const store =new Vuex.Store({
   modules:{
-    footerStatus,
-    home
-  }
+    home,
+    login
+  },
+  getters
 })
 
-export default store
+export default store;

@@ -2,10 +2,12 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '../views/Login.vue';
 import Home from '../views/home.vue';
-import ComponyInfoManage from '../views/componyinfomanage.vue';
 import PostInfoManage from '../views/postinfomange.vue';
 import OrderInfoManage from '../views/orderinfomange.vue';
 import PostType from '../views/postinfomange.vue';
+
+// 系统管理
+import MenuManagement from '../views/systemManagement/menuManagement.vue'
 
 // 解决多次点击同一个router报错
 const originalPush = Router.prototype.push
@@ -30,9 +32,9 @@ const router = new Router({
   component: Home,
   children:[
     {
-      path: '/componyinfomanage',
-      name: '企业信息',
-      component: ComponyInfoManage,
+      path: '/system/menuManagement',
+      name: '菜单管理',
+      component: MenuManagement,
     },
     {
       path: '/postinfomange',

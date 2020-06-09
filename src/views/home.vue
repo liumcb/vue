@@ -7,7 +7,9 @@
         </el-col>
         <el-col :span="8" class="rightsection">
           <div class="grid-content bg-purple-light">
-            <span class="el-dropdown-link userinfo-inner">欢迎您，管理员</span>
+            <span class="el-dropdown-link userinfo-inner"
+              >欢迎您，登录名：{{ userInfo.username }}</span
+            >
           </div>
         </el-col>
       </el-row>
@@ -25,7 +27,11 @@
           text-color="#fff"
           active-text-color="#ffd04b"
         >
-          <el-submenu :index="' ' + item1.order" v-for="item1 in menuData" :key="item1.path">
+          <el-submenu
+            :index="' ' + item1.id"
+            v-for="item1 in menuList"
+            :key="item1.url"
+          >
             <!--表示可以展开的一组 -->
             <template slot="title" @click="clickTitle">
               <!--图标 -->
@@ -37,8 +43,8 @@
               class="menuItem"
               @click="clickMenuItem"
               v-for="item2 in item1.children"
-              :key="item2.path"
-              :index="item2.path"
+              :key="item2.url"
+              :index="item2.url"
             >
               <i class="el-icon-location"></i>
               <!--图标 -->
@@ -56,78 +62,38 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
+
 export default {
-  name: "Home",
+  name: 'Home',
   data() {
     return {
       style: {
-        display: "block"
+        display: 'block',
       },
-      menuData: [
-        {
-          name: "企业信息管理",
-          order: "1",
-          path: "componyinfomanage",
-          children: [
-            {
-              path: "componyinfomanage",
-              name: "企业信息"
-            }
-          ]
-        },
-        {
-          path: "postinfomange",
-          name: "岗位信息管理",
-          order: "2",
-          children: [
-            {
-              path: "postinfomange",
-              name: "岗位信息"
-            }
-          ]
-        },
-        {
-          path: "orderinfomange",
-          name: "订单信息管理",
-          order: "3",
-          children: [
-            {
-              path: "orderinfomange",
-              name: "订单信息"
-            }
-          ]
-        },
-        {
-          path: "datamangeinfo",
-          name: "数据字典",
-          order: "4",
-          children: [
-            {
-              path: "datamangeinfo",
-              name: "岗位类型"
-            }
-          ]
-        }
-      ]
     };
   },
+  computed: {
+    ...mapState('login', {
+      userInfo: (state) => state.userInfo,
+    }),
+    ...mapState('home', {
+      menuList: (state) => state.menuList,
+    }),
+  },
   created: function() {
-    // 获取菜单页面
-    this.$post("/menu/indexMenuAndPermission", { userId: 7 })
-      .then(req => {
-        console.log("得到的req===", req);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    // 获取菜单
+    const menuParam = { userId: 7 };
+    this.createMenuAction(menuParam);
   },
   methods: {
     clickMenuItem() {},
     //回到首页
     clickTitle() {
-      this.style.display = "block";
-    }
-  }
+      this.style.display = 'block';
+    },
+    ...mapActions('home', ['createMenuAction']),
+  },
 };
 </script>
 <style scoped>

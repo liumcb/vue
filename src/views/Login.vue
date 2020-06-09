@@ -8,65 +8,84 @@
       />
       <p class="logoName">后台登录系统</p>
       <div class="logoForm">
-        <el-form ref="loginForm" :model="loginForm" label-width="80px" :rules="rules">
+        <el-form
+          ref="loginForm"
+          :model="loginForm"
+          label-width="80px"
+          :rules="rules"
+        >
           <el-form-item label="用户名" prop="username">
             <el-input v-model="loginForm.username"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
-            <el-input v-model="loginForm.password" type="password" autocomplete="off"></el-input>
+            <el-input
+              v-model="loginForm.password"
+              type="password"
+              autocomplete="off"
+            ></el-input>
           </el-form-item>
         </el-form>
       </div>
       <div class="submit">
-        <el-button type="primary" @click="submitClick('loginForm')">登录</el-button>
+        <el-button type="primary" @click="submitClick('loginForm')"
+          >登录</el-button
+        >
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
 export default {
-  name: "Login",
+  name: 'Login',
   data() {
     return {
       rules: {
         username: [
-          { required: true, message: "请输入用户名", trigger: "blur" }
+          { required: true, message: '请输入用户名', trigger: 'blur' },
         ],
-        password: [{ required: true, message: "请输入密码", trigger: "blur" }]
+        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
       },
       loginForm: {
-        username: "",
-        password: ""
-      }
+        username: '',
+        password: '',
+      },
     };
   },
   methods: {
     submitClick(formName) {
       // 表单验证
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
           const data = {
             username: this.loginForm.username,
-            password: this.loginForm.password
+            password: this.loginForm.password,
           };
-          console.log("得到提交的data====", data);
+          console.log('得到提交的data====', data);
           // 跳转到home页面
-          this.$router.push("/home");
+          if (data) {
+            // 保存信息
+            this.saveUserInfo(data);
+            // 跳转页面
+            this.$router.push('/home');
+          }
         } else {
-          console.log("error submit！");
+          console.log('error submit！');
           return false;
         }
       });
-    }
-  }
+    },
+    ...mapMutations('login', ['saveUserInfo']),
+  },
 };
 </script>
 <style lang="scss">
 .loginBody {
   width: 100%;
   height: 100%;
-  background: url("https://public-aibiyag.oss-cn-shanghai.aliyuncs.com/operator/sso/aibiyag_sso_login.png")
+  background: url('https://public-aibiyag.oss-cn-shanghai.aliyuncs.com/operator/sso/aibiyag_sso_login.png')
     center center no-repeat;
   overflow: hidden;
   .login {
@@ -95,6 +114,7 @@ export default {
       position: absolute;
       width: 100%;
       bottom: 10%;
+      text-align: center;
     }
   }
 }
