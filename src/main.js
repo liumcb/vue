@@ -19,7 +19,7 @@ Vue.config.productionTip = false
 
 new Vue({
   router,  // 注入到根实例中
-  store,   // 将store挂载到实例中
+  store: store,   // 将store挂载到实例中
   render: h => h(App),
 }).$mount('#app')
 

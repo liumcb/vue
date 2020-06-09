@@ -1,26 +1,34 @@
 //要设置的全局访问的state对象，默认初始值 
 const state = { 
-  blogTitle: '迩伶贰blog',
-  views: 10,
-  blogNumber: 100,
-  total: 0,
+  title:'home页面',
+  count:'0',
   todos: [
     {id: 1, done: true, text: '我是码农'},
     {id: 2, done: false, text: '我是码农202号'},
     {id: 3, done: true, text: '我是码农202号'}
   ]
 };
+console.log('state==state', state);
 
 //实时监听state值的变化(最新状态)
-const getters = {   
-  getToDo: state => {
-    return state.todos.filter(todo => todo.done)
+const getters= {
+  doneTodos: state => {//通过方法访问
+    return state.todos.filter(todo => {
+      console.log('state===获取的值',state,todo);
+    })
+  },
+  doneTodosCount: (state, getters) => {//通过属性访问
+    return getters.doneTodos.length
   }
-};
+}
+
 
 //自定义改变state初始值的方法，这里面的参数除了state之外还可以再传额外的参数(变量或对象);
 const mutations = {
-
+  increment(state,n){
+    // 更新状态
+    state.count+=n;
+  }
 };
 
 //自定义触发mutations里函数的方法，context与store 实例具有相同方法和属性

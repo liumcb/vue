@@ -1,22 +1,24 @@
 <template>
   <div>
-    <p></p>
+    <h1>{{title}}</h1>
+    <div v-on:click="clickCount">点击一下</div>
+    <h1>此时的count：{{count}}</h1>
   </div>
 </template>
-
-<style>
-</style>
 
 <script>
 export default {
   data() {
-    console.log("this.$store.home=", this.$store.state.home);
-    console.log("this.getToDo", this.getToDo);
-
     return {
-      views: this.$store.state.home.views
+      title: this.$store.state.home.title,
+      count: this.$store.state.home.count
     };
   },
-  created() {}
+  methods: {
+    clickCount() {
+      // 先注册，在调用
+      this.add();
+    }
+  }
 };
 </script>

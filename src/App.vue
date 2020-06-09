@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "App",
@@ -18,6 +18,9 @@ export default {
       home: state => state.home
     }),
     ...mapGetters(["getToDo"])
+  },
+  methods: {
+    ...mapMutations(["increment"])
   }
 };
 </script>
