@@ -6,12 +6,14 @@ import store from './store'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import { post, get, patch, put } from "./api/config";
+import CommonFunction from './utils/commonFunction';
 
 // 调用接口方法
 Vue.prototype.$post = post
 Vue.prototype.$get = get
 Vue.prototype.$patch = patch
 Vue.prototype.$put = put
+Vue.prototype.CommonFunction = CommonFunction;
 
 // 使用element
 Vue.use(ElementUI);

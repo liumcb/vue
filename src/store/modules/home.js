@@ -1,4 +1,4 @@
-import { getMenuApi } from '../../api/request'; 
+import { getMenuApi, dictCodeApi } from '../../api/request'; 
 //要设置的全局访问的state对象，默认初始值 
 const state = { 
   title:'home页面',
@@ -9,7 +9,8 @@ const state = {
     {id: 2, done: false, text: '我是码农202号'},
     {id: 3, done: true, text: '我是码农202号'}
   ],
-  menuList:[]
+  menuList:[],
+  dictCodeList:[]
 };
 
 //自定义改变state初始值的方法，这里面的参数除了state之外还可以再传额外的参数(变量或对象);
@@ -21,6 +22,16 @@ const mutations = {
   // 获取菜单
   createMenu(state,menuList){
     state.menuList = menuList.titles;
+  },
+  // 获取代码表====将数组转换为对象数组
+  queryDictList(state,dictCodeList){
+    const getAllDisctCodeObj = {};
+    dictCodeList.forEach((item) => {
+      const array = getAllDisctCodeObj[item.dictGroup] || [];
+      array.push(item);
+      getAllDisctCodeObj[item.dictGroup] = array;
+    });
+    state.dictCodeList = getAllDisctCodeObj
   }
 };
 
@@ -29,15 +40,22 @@ const actions = {
   incrementAction({commit}){
     commit("increment")
   },
+  // 获取菜单列表
   createMenuAction(context,params){
-    console.log('获取的菜单的param===', params);
-    // 获取菜单列表
     getMenuApi(params).then(action => {
       context.commit('createMenu', action.value)
     }).catch((err) =>{
       console.log(err);
     })
   },
+  // 获取代码表
+  queryDictListAction(context,params){
+    dictCodeApi(params).then(action => {
+      context.commit('queryDictList', action.value)
+    }).catch((err) =>{
+      console.log(err);
+    })
+  }
 };
 
 export default {

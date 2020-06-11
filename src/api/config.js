@@ -9,23 +9,19 @@ import router from '@/router'
 axios.defaults.timeout = 50000
 axios.defaults.baseURL = 'https://biz-dev.aibiyag.com' // 这是调用数据接口,公共接口url+调用接口名
 let httpUrl = window.location.host
-console.log('httpUrl====', httpUrl);
 
 if (httpUrl.indexOf('biz.aibiyag.com') !== -1) {
-  console.log('测试环境', httpUrl)
   axios.defaults.baseURL = 'https://biz.aibiyag.com' // 这是调用数据接口,公共接口url+调用接口名
 } else if (httpUrl.indexOf('biz-dev.aibiyag.com') !== -1) {
-  console.log('指定开发环境', httpUrl)
   axios.defaults.baseURL = 'https://biz-dev.aibiyag.com' // 这是调用数据接口,公共接口url+调用接口名
 } else {
-  console.log('开发环境', httpUrl)
   axios.defaults.baseURL = 'https://biz-dev.aibiyag.com' // 这是调用数据接口,公共接口url+调用接口名
 }
  
 // http request 拦截器，通过这个，我们就可以把token传到后台
 axios.interceptors.request.use(
   config => {
-    console.log('请求路径', config.url, config.data)
+    // console.log('请求路径', config.url, config.data)
     config.dataType = 'json'
     config.headers = {
       'Content-Type': 'application/json;charset=UTF-8' // 设置跨域头部
@@ -41,7 +37,7 @@ axios.interceptors.request.use(
 // http response 拦截器
 axios.interceptors.response.use(
   response => {
-    console.log('请求拦截返回参数', response)
+    // console.log('请求拦截返回参数', response)
     if (response.status === 200) {
       // 成功
       let returnCode = response.data.code

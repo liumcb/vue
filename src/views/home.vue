@@ -7,9 +7,7 @@
         </el-col>
         <el-col :span="8" class="rightsection">
           <div class="grid-content bg-purple-light">
-            <span class="el-dropdown-link userinfo-inner"
-              >欢迎您，登录名：{{ userInfo.username }}</span
-            >
+            <span class="el-dropdown-link userinfo-inner">欢迎您，登录名：{{ userInfo.username }}</span>
           </div>
         </el-col>
       </el-row>
@@ -27,11 +25,7 @@
           text-color="#fff"
           active-text-color="#ffd04b"
         >
-          <el-submenu
-            :index="' ' + item1.id"
-            v-for="item1 in menuList"
-            :key="item1.url"
-          >
+          <el-submenu :index="' ' + item1.id" v-for="item1 in menuList" :key="item1.url">
             <!--表示可以展开的一组 -->
             <template slot="title" @click="clickTitle">
               <!--图标 -->
@@ -62,38 +56,35 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapActions, mapGetters } from "vuex";
 
 export default {
-  name: 'Home',
+  name: "Home",
   data() {
     return {
       style: {
-        display: 'block',
-      },
+        display: "block"
+      }
     };
   },
   computed: {
-    ...mapState('login', {
-      userInfo: (state) => state.userInfo,
-    }),
-    ...mapState('home', {
-      menuList: (state) => state.menuList,
-    }),
+    ...mapGetters(["userInfo", "menuList"])
   },
   created: function() {
     // 获取菜单
     const menuParam = { userId: 7 };
     this.createMenuAction(menuParam);
+    // 获取代码表
+    this.queryDictListAction({});
   },
   methods: {
     clickMenuItem() {},
     //回到首页
     clickTitle() {
-      this.style.display = 'block';
+      this.style.display = "block";
     },
-    ...mapActions('home', ['createMenuAction']),
-  },
+    ...mapActions("home", ["createMenuAction", "queryDictListAction"])
+  }
 };
 </script>
 <style scoped>
