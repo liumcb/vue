@@ -77,7 +77,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["rolePageResult", "roleTreeListResult"])
+    ...mapGetters(["rolePageResult", "roleTreeListResult", "selectUserResult"])
   },
   methods: {
     ...mapActions("system", [
@@ -188,15 +188,24 @@ export default {
     },
     // 用户配置
     userConfig(record) {
-      this.dialog.dialogVisible = true;
-      this.dialog.dialogType = "userConfig";
-      console.log("record===用户配置", record);
+      console.log("得到的record====", record);
+
       // 获取所有用户
       this.allUserAction({});
       // 获取已选用户
       this.selectUserAction({
         roleId: record.id
       });
+      const timer = setInterval(() => {
+        if (this.selectUserResult) {
+          clearInterval(timer);
+          this.dialog.dialogVisible = true;
+          this.dialog.dialogType = "userConfig";
+          this.dialog.transferArr = this.selectUserResult;
+        } else {
+          clearInterval(timer);
+        }
+      }, 100);
     }
   }
 };

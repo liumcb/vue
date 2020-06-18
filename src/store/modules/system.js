@@ -38,14 +38,12 @@ const mutations = {
       return result;
     }
     modify(result);
-    console.log('修改后的result===', result);
     const resultArr = [{
       value: 0,
       key: 0,
       label: '顶级',
       children: result
     }];
-    console.log('resultArr=', resultArr);
     state.treeSelectListResult = resultArr;
   },
   // 获取菜单列表
@@ -59,7 +57,6 @@ const mutations = {
   // 获取所有角色列表
   roleTree(state,result){
     state.roleTreeListResult = result;
-    console.log('角色result===', result);
 
     if(result){
       result.map(child => {
@@ -80,9 +77,6 @@ const mutations = {
       })
     }
     const roleResult = result.filter(item => item.id === 0);
-    console.log('修改后的result=', result);
-
-    console.log('roleResult=',roleResult);
     state.roleModifyTree = roleResult;
   },
   // 添加角色
@@ -91,24 +85,24 @@ const mutations = {
   },
   // 获取所有用户
   allUser(state,result){
-    console.log('result====', result)
     if(result && result.value){
       result.value.map((item) => {
         item.key = item.id;
         item.label = item.userName;
       })
     }
-    console.log('result.value=', result.value);
     state.allUserResult = result.value;
   },
   // 获取已选用户
   selectUser(state,result){
     if(result && result.value){
+      // 清空
+      state.selectUserResult = [];
+      
       const selectArr = [];
       result.value.map(item => {
         return selectArr.push(item.id)
       })
-      console.log('已选用户selectArr=', selectArr);
       state.selectUserResult = selectArr;
     }
   }

@@ -38,7 +38,7 @@
       <el-transfer
         style="text-align: left; display: inline-block"
         :data="allUserResult"
-        v-model="selectUserResult"
+        v-model="selectUser"
       ></el-transfer>
     </el-form>
     <span slot="footer" class="dialog-footer" v-if="!dialog.disable">
@@ -55,15 +55,7 @@ export default {
   name: "RoleModal",
   props: ["dialog", "role"],
   data() {
-    console.log(
-      "this.dialog------",
-      this.dialog,
-      "iooooooo",
-      this.$store.selectUserResult,
-      this.$store,
-      this.selectUserResult
-    );
-
+    console.log("this.dialog.transferArr=", this.dialog.transferArr);
     return {
       // 必填校验
       rules: {
@@ -78,11 +70,8 @@ export default {
           trigger: "blur"
         }
       },
-      selectUser: [18007, 18008, 18009]
+      selectUser: this.dialog.transferArr
     };
-  },
-  created() {
-    console.log("created=====this.selectUserResult=", this.selectUserResult);
   },
   computed: {
     ...mapGetters([
@@ -90,13 +79,8 @@ export default {
       "roleTreeListResult",
       "roleModifyTree",
       "roleCreateResult",
-      "allUserResult",
-      "selectUserResult"
-    ]),
-    set(value) {
-      console.log("的都的value===", value);
-      return this.selectUserResult;
-    }
+      "allUserResult"
+    ])
   },
   methods: {
     ...mapActions("system", ["roleCreateAction"]),

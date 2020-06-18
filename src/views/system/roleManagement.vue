@@ -2,7 +2,7 @@
   <div>
     <RoleSearch :role="role" :dialog="dialog" @showInsurInformation="showInsurInformation"></RoleSearch>
     <RoleTable :role="role" :dialog="dialog"></RoleTable>
-    <RoleModal :dialog="dialog" :role="role"></RoleModal>
+    <RoleModal v-if="this.dialog.dialogVisible" :dialog="dialog" :role="role"></RoleModal>
   </div>
 </template>
 
@@ -33,7 +33,8 @@ export default {
           roleName: "",
           parentId: ""
         },
-        dialogType: "dialog"
+        dialogType: "dialog",
+        transferArr: []
       }
     };
   },
