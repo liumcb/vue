@@ -1,14 +1,6 @@
 import { getMenuApi, dictCodeApi } from '../../api/request'; 
 //要设置的全局访问的state对象，默认初始值 
 const state = { 
-  title:'home页面',
-  count:'0',
-  vshop:'123',
-  todos: [
-    {id: 1, done: true, text: '我是码农'},
-    {id: 2, done: false, text: '我是码农202号'},
-    {id: 3, done: true, text: '我是码农202号'}
-  ],
   menuList:[],
   dictCodeList:[]
 };
